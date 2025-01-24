@@ -1,5 +1,11 @@
 let bubblesOnScreen = []
+let bubbleCurrency = 0
 
+function addBubble(numBubbles, draw) {
+    bubbleCurrency += numBubbles;
+    if (!draw) return;
+    spawnBubbleOnScreen();
+}
 
 function spawnBubbleOnScreen() {
     const template = document.querySelector(".bubble");
@@ -10,8 +16,8 @@ function spawnBubbleOnScreen() {
     bubble.draggable = false;
 
     bubble.style.width = Math.random() * 10 + 80 + "px";
-    bubble.style.left = Math.random() * 50 + 125 + "px";
-    bubble.style.top = Math.random() * 100 + 300 + "px";
+    bubble.style.left = Math.random() * 120 + 100 + "px";
+    bubble.style.top = Math.random() * 30 + 340 + "px";
 
     document.querySelector(".container").appendChild(bubble);
 
@@ -22,16 +28,14 @@ function spawnBubbleOnScreen() {
 function updateBubbles() {
     bubblesOnScreen = bubblesOnScreen.filter((bub) => {
         let depth = parseInt(bub.style.top);
+        
         if (depth <= 0) {
             bub.remove();
             return false;
         }
-        let LR = parseInt(bub.style.left);
-        let offset = Math.random() * 1 - 0.1;
-        LR += offset;
+
         depth--;
         bub.style.top = depth +"px";
-        bub.style.left = LR + "px";
         return true;
     })
 }

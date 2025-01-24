@@ -1,4 +1,4 @@
-
+/* Disgusting stuff */
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans&display=swap');
 body {
     background: black;
@@ -17,21 +17,6 @@ body {
     align-items: center;
 }
 
-
-#moneyCounter {
-    width: 10%;
-    height: 90%;
-    margin: 5%;
-    background: green;
-    display: flex;
-    text-align: center;
-}
-
-p {
-    white-space: normal; /* Allow text to wrap */
-    word-wrap: break-word; /* Break long words if necessary */
-}
-
 #stocks {
     width: 45%;
     height: 75%;
@@ -48,6 +33,9 @@ p {
 }
 
 .bsButton {
+    font-family: "Noto Sans", Sans-Serif;
+    border-radius: 1vmin;
+    font-size: 200%;
     width: 50%;
     height: 10%;
     border: solid black 0.1vmin;
@@ -56,6 +44,32 @@ p {
 
 .bsButton:hover {
     cursor: pointer;
+}
+
+#moneyText {
+    position: fixed;
+    width: 20%;
+    top: 85%;
+    left: 2%;
+
+}
+
+#valueDisplay {
+    background: white;
+}
+
+#valueDisplay:hover {
+    background: white;
+    cursor: auto;
+}
+
+#holdings {
+    background: white;
+}
+
+#holdings:hover {
+    background: white;
+    pointer: auto;
 }
 
 #buy {
@@ -80,6 +94,10 @@ p {
 
 #blowerIMG {
     width: 50%;
+}
+
+#blowerIMG:hover {
+    cursor: pointer;
 }
 
 .bubble {
