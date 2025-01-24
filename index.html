@@ -5,18 +5,29 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link href="css/index.css" rel="stylesheet">
     </head>
+    <title>The greatest game ever</title>
     <body>
 
         <div class="container">
+            <img class="bubble" src="./assets/bubble.png" style="display: none">
             <div id="blower">  
-                <img src="./assets/blower.png">
+                <img id="blowerIMG" draggable="false" src="./assets/blower.png" onclick="spawnBubbleOnScreen()">
             </div>
+            
             <div id="stocks">
                 <canvas id="graph"></canvas>
                 <button class="bsButton" id="buy"> BUY! </button>
-                <button class="bsButton" id"sell"> SELL! </button>
+                <button class="bsButton" id="sell"> SELL! </button>
             </div>    
+
+            <div id="toolbelt">
+                <div id="moneyCounter">
+                    <p> &#x20BF;6942000000000000000000000 </p>
+                </div>
+            </div>
         </div>
+
+        <script src="./js/bubble.js"></script>
         <script src="./js/index.js"></script>
     </body>
 </html>
