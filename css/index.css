@@ -54,6 +54,14 @@ body {
 
 }
 
+#blowButton {
+    position: fixed;
+    width: 20%;
+    top: 72.5%;
+    left: 2%;
+}
+
+
 #valueDisplay {
     background: white;
 }
@@ -69,7 +77,7 @@ body {
 
 #holdings:hover {
     background: white;
-    pointer: auto;
+    cursor: auto;
 }
 
 #buy {
@@ -96,9 +104,6 @@ body {
     width: 50%;
 }
 
-#blowerIMG:hover {
-    cursor: pointer;
-}
 
 .bubble {
     top: 40%;
@@ -117,4 +122,14 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
+}
+
+#shop {
+    background: #A19C7C;
+    position: fixed;
+    width: 40%;
+    height: 40%;
+    top: 20%;
+    left: 40%;
+    border: solid black 0.1vmin;
 }

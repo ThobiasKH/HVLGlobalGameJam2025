@@ -11,22 +11,31 @@
         <div class="container">
             <img class="bubble" src="./assets/bubble.png" style="display: none">
             <div id="blower">  
-                <img id="blowerIMG" draggable="false" src="./assets/blower.png" onclick="addBubble(1, true)">
+                <img id="blowerIMG" draggable="false" src="./assets/blower.png" >
             </div>
             
             <div id="stocks">
                 <canvas id="graph"></canvas>
-                <button class="bsButton" id="buy"> BUY! </button>
-                <button class="bsButton" id="sell"> SELL! </button>
+                <button class="bsButton" id="buy" onclick="buyStock()"> BUY! </button>
+                <button class="bsButton" id="sell" onclick="sellStock()"> SELL! </button>
                 <button class="bsButton" id="valueDisplay">  &#x20BF;69 </button>
                 <button class="bsButton" id="holdings">  Holding: 0</button>
             </div>    
 
+            <button id="blowButton" class="bsButton" onclick="addBubble(1,true)"> BLOW! </button>
             <button id="moneyText" class="bsButton"> &#x20BF;0 </p>
         </div>
 
+       <!-- <div id="shop">
+            
+            
+        </div>
+        --!>
+
         <script src="./js/stockmarket.js"></script>
         <script src="./js/bubble.js"></script>
+        <script src="./js/shop.js"></<script>
+        </script>
         <script src="./js/index.js"></script>
     </body>
 </html>

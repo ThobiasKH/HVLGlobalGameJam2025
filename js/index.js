@@ -17,7 +17,7 @@ function loop() {
     updateBubbles(); 
 
 
-    document.getElementById("moneyText").innerHTML = "&#x20BF;" + bubbleCurrency;
+    document.getElementById("moneyText").innerHTML = "&#x20BF;" + bubbleCurrency.toFixed(2);
     requestAnimationFrame(loop);;
 
 }

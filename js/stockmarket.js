@@ -14,6 +14,22 @@ const stockCTX = stockCanvas.getContext("2d");
 stockCanvas.width = 600;
 stockCanvas.height = 600;
 
+function buyStock() {
+    if (bubbleCurrency < stockValue1) return;
+    bubbleCurrency -= stockValue1;
+    document.getElementById("moneyText").innerHTML = "&#x20BF;" + bubbleCurrency;
+    stockHoldings++;
+    document.getElementById("holdings").innerHTML = "Holding: " + stockHoldings;
+}
+
+function sellStock() {
+    if (stockHoldings == 0) return;
+    bubbleCurrency += stockValue1;
+    document.getElementById("moneyText").innerHTML = "&#x20BF;" + bubbleCurrency;
+    stockHoldings--;
+    document.getElementById("holdings").innerHTML = "Holding: " + stockHoldings;
+}
+
 function simulateStockPrice(currentPrice, volatility, drift) {
     const change = drift + (Math.random() * 2 - 1) * volatility;
     const newPrice = currentPrice * (1 + change);

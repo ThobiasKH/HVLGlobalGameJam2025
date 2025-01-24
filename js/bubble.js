@@ -1,5 +1,5 @@
-let bubblesOnScreen = []
-let bubbleCurrency = 0
+let bubblesOnScreen = [];
+let bubbleCurrency = 1000;
 
 function addBubble(numBubbles, draw) {
     bubbleCurrency += numBubbles;
