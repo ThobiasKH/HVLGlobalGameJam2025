@@ -6,20 +6,10 @@ body {
     font-family: "Noto Sans", Sans-Serif;
 }
 
-#toolbelt {
-    position: fixed;
-    width: 100%;
-    height: 10%;
-    background: darkgray;
-    top: 90%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
 
 #stocks {
     width: 45%;
-    height: 75%;
+    height: 90%;
     margin: 2vmin;
     display: flex;
     flex-direction: column;
@@ -88,6 +78,22 @@ body {
     background: #278121;
 }
 
+#buyAll {
+    background: #00A121;
+}
+
+#buyAll:hover {
+    background: #278121;
+}
+
+#sellAll {
+    background: red;
+}
+
+#sellAll:hover {
+    background: #ab0000;
+}
+
 #sell {
     background: red;
 }
@@ -113,7 +119,10 @@ body {
 }
 
 .container {
-    background: gray;
+    background-image: url("../assets/background.jpg");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
     width: 100%;
     height: 100%;
     position: absolute;
@@ -129,7 +138,45 @@ body {
     position: fixed;
     width: 40%;
     height: 40%;
-    top: 20%;
-    left: 40%;
+    top: 59%;
+    left: 23.5%;
     border: solid black 0.1vmin;
+    display: none;
+    grid-template-columns: repeat(4, 1fr);
+}
+
+.shopItem {
+
+    background: white;
+    width: 100%;
+    height: 20%;
+    margin: 0.5vmin;
+    border-radius: 1vmin;
+}
+
+.shopItem:hover {
+    cursor: pointer;
+}
+
+.shopItemDescription {
+    font-family: "Noto Sans", Sans-Serif;
+    display: none;
+    background: white;
+    position: fixed;
+    width: 20%;
+    text-align: center;
+    border-radius: 1vmin;
+    border: black solid 0.2vmin;
+}
+
+#taxCounter {
+    background: white;
+    position: fixed;
+    left: 2%;
+    top: 3%;
+}
+
+#taxCounter:hover {
+    cursor: auto;
+    background: white;
 }

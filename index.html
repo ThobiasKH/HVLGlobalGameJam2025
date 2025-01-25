@@ -16,26 +16,30 @@
             
             <div id="stocks">
                 <canvas id="graph"></canvas>
-                <button class="bsButton" id="buy" onclick="buyStock()"> BUY! </button>
-                <button class="bsButton" id="sell" onclick="sellStock()"> SELL! </button>
+                <button class="bsButton" id="buy" onclick="buyStock(true)"> BUY! </button>
+                <button class="bsButton" id="buyAll" onclick="buyAll()"> INVEST ALL! </button>
+                <button class="bsButton" id="sell" onclick="sellStock(true)"> SELL! </button>
+                <button class="bsButton" id="sellAll" onclick="sellAll()"> SELL ALL! </button>
                 <button class="bsButton" id="valueDisplay">  &#x20BF;69 </button>
                 <button class="bsButton" id="holdings">  Holding: 0</button>
             </div>    
 
             <button id="blowButton" class="bsButton" onclick="addBubble(1,true)"> BLOW! </button>
-            <button id="moneyText" class="bsButton"> &#x20BF;0 </p>
+            <button id="moneyText" class="bsButton" onclick="toggleShop()"> &#x20BF;0 </p>
+            <button id="taxCounter" class="bsButton">Next tax: 20s | Rate: 45%</p>
+
+            <audio id="beepAudio" src="./assets/BEEP.wav" preload="auto"></audio>
+            <audio id="moneyAudio" src="./assets/MONEY.mp3" preload="auto"></audio>
         </div>
 
-       <!-- <div id="shop">
-            
+        <div id="shop">
             
         </div>
-        --!>
+    
 
         <script src="./js/stockmarket.js"></script>
         <script src="./js/bubble.js"></script>
-        <script src="./js/shop.js"></<script>
-        </script>
+        <script src="./js/shop.js"></script>
         <script src="./js/index.js"></script>
     </body>
 </html>

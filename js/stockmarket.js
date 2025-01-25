@@ -1,9 +1,9 @@
-let stockValue1 = 100;
+let stockValue1 = 100.69;
 let stockHoldings = 0;
 const stockVolatility1 = 0.02;
 const stockDrift1 = 0.00001;
 
-const numFramesPerStockUpdate = 1;
+let numFramesPerStockUpdate = 15;
 let numFramesSinceLastStockUpdate = 0;
 
 const maxStockStackSize = 2000;
@@ -14,16 +14,35 @@ const stockCTX = stockCanvas.getContext("2d");
 stockCanvas.width = 600;
 stockCanvas.height = 600;
 
-function buyStock() {
+const moneyAudio = document.getElementById("moneyAudio");
+
+function buyAll() {
+    moneyAudio.play();
+    let numPossible = Math.floor(bubbleCurrency / stockValue1);
+    stockHoldings += numPossible;
+    bubbleCurrency -= numPossible * stockValue1;
+    document.getElementById("moneyText").innerHTML = "&#x20BF;" + bubbleCurrency;
+    document.getElementById("holdings").innerHTML = "Holding: " + stockHoldings;
+}
+
+function sellAll() {
+    moneyAudio.play();
+    bubbleCurrency += stockHoldings * stockValue1;
+    stockHoldings = 0;
+}
+
+function buyStock(soundeffect = false) {
     if (bubbleCurrency < stockValue1) return;
+    if (soundeffect) moneyAudio.play();
     bubbleCurrency -= stockValue1;
     document.getElementById("moneyText").innerHTML = "&#x20BF;" + bubbleCurrency;
     stockHoldings++;
     document.getElementById("holdings").innerHTML = "Holding: " + stockHoldings;
 }
 
-function sellStock() {
+function sellStock(soundeffect = false) {
     if (stockHoldings == 0) return;
+    if (soundeffect) moneyAudio.play();
     bubbleCurrency += stockValue1;
     document.getElementById("moneyText").innerHTML = "&#x20BF;" + bubbleCurrency;
     stockHoldings--;
@@ -87,3 +106,4 @@ function drawChart() {
     }
 
 }
+

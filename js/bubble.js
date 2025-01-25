@@ -1,5 +1,5 @@
 let bubblesOnScreen = [];
-let bubbleCurrency = 1000;
+let bubbleCurrency = 100;
 
 function addBubble(numBubbles, draw) {
     bubbleCurrency += numBubbles;
@@ -15,9 +15,9 @@ function spawnBubbleOnScreen() {
     bubble.style.display = "block";
     bubble.draggable = false;
 
-    bubble.style.width = Math.random() * 10 + 80 + "px";
-    bubble.style.left = Math.random() * 120 + 100 + "px";
-    bubble.style.top = Math.random() * 30 + 340 + "px";
+    bubble.style.width = Math.random() * 5 + 2 + "%";
+    bubble.style.left = Math.random() * 2.5 + 6 + "%";
+    bubble.style.top = Math.random() * 5 + 30 + "%";
 
     document.querySelector(".container").appendChild(bubble);
 
@@ -34,8 +34,11 @@ function updateBubbles() {
             return false;
         }
 
-        depth--;
-        bub.style.top = depth +"px";
+        depth -= 0.0001;
+        bub.style.top = depth +"%";
         return true;
     })
 }
+
+let taxRate = 0.70;
+
