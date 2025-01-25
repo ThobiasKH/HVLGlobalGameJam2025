@@ -28,43 +28,60 @@ function loop() {
 
     updateBubbles(); 
 
+    if (bubbleCurrency >= 1000000) countingGameTime = false;
 
     document.getElementById("moneyText").innerHTML = "Shop | &#x20BF;" + formatNumber(bubbleCurrency);
     requestAnimationFrame(loop);;
 
 }
 
-loop();
+// Thanks chatGPT
+function formatTime(seconds) {
+    const hours = Math.floor(seconds / 3600); // Get total hours
+    const minutes = Math.floor((seconds % 3600) / 60); // Get remaining minutes
+    const remainingSeconds = seconds % 60; // Get remaining seconds
+
+    // Return formatted time
+    return `${hours}h ${minutes}m ${remainingSeconds}s`;
+}
 
 let taxTime = 20;
 let timeLeft = taxTime; 
 let lastUpdate = 0; 
 let beep = document.getElementById("beepAudio");
-beep.volume = 0.2;
+beep.volume = 0.1;
+
+let timeSinceStart = 0;
+let countingGameTime = true;
 
 const taxCounter = document.getElementById("taxCounter");
 taxCounter.textContent = "Rate: " + taxRate * 100 + "% | Next tax: " + timeLeft +"s";
+taxCounter.style.background = "#00ff00";
+document.getElementById("gameTimer").innerText = "Time spent becoming a millionaire: " + formatTime(timeSinceStart);
 function updateTimer(timestamp) {
     if (!lastUpdate) {
         lastUpdate = timestamp;
     }
     
     const deltaTime = timestamp - lastUpdate; 
-
-    if (timeLeft < 10) {
-        taxCounter.style.background = "red";
+    if (countingGameTime) {
+        document.getElementById("gameTimer").innerText = "Time spent becoming a millionaire: " + formatTime(timeSinceStart);
     }
     else {
-        taxCounter.style.background = "#00ff00";
+        document.getElementById("gameTimer").innerText = "Congrats you became a millionaire in " + formatTime(timeSinceStart) +"!";
     }
-    
+
     if (deltaTime >= 1000) {
+        taxCounter.style.background = "#00ff00";
         if (timeLeft > 0) {
             timeLeft--;
+            if (countingGameTime) timeSinceStart++;
+
             taxCounter.textContent = "Rate: " + taxRate * 100 + "% | Next tax: " + timeLeft + "s";
         }
-        if (timeLeft < 10) {
+        if (timeLeft < 5) {
             beep.play();
+            taxCounter.style.background = "red";
         }
         lastUpdate = timestamp; 
     }
@@ -72,13 +89,16 @@ function updateTimer(timestamp) {
     if (timeLeft <= 0) {
         timeLeft = taxTime;
         bubbleCurrency -= bubbleCurrency * taxRate;
-        setTimeout(() => {
-            requestAnimationFrame(updateTimer);
-        }, 1000);
+        requestAnimationFrame(updateTimer);
     }
     else {
         requestAnimationFrame(updateTimer);
     }
 }
 
-requestAnimationFrame(updateTimer);
+function startGame() {
+    document.getElementById("tutorial").remove();
+
+    loop();
+    requestAnimationFrame(updateTimer);
+}

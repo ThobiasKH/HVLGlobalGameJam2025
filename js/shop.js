@@ -47,6 +47,16 @@ const shopItems = [
     true, 
     1.5),
 
+    new ShopItem("Sugary Sweets", 100000, function() {
+        shopItems[0].func = function() {
+            setInterval(() => {
+                addBubble(1, Math.random() <= 1 / this.numBought);
+            }, 500)
+        }    
+    },
+    "Buy your hard workers some performance-enhancing sweets to make them work twice as fast!"
+    ),
+
     // Dear lord
     new ShopItem("Economic Boom!", 1000, function() {
         numFramesSinceLastStockUpdate = 0; 
@@ -70,13 +80,50 @@ const shopItems = [
     }, 
     "Lobby the government to give the stock market a speed boost!"        
     ),
+
+    new ShopItem("Level 1 Tax Evasion", 500, function() {
+        taxTime = 40;
+        taxRate = 0.6;
+        timeLeft = taxTime;
+        lastUpdate = 0;
+        shopItems.push(
+            new ShopItem("Level 2 Tax Evasion", 5000, function() {
+                taxTime = 60;
+                taxRate = 0.5;
+                timeLeft = taxTime;
+                lastUpdate = 0;
+                shopItems.push(
+                    new ShopItem("Level 3 Tax Evasion", 50000, function() {
+                        taxTime = 120;
+                        taxRate = 0.3;
+                        timeLeft = taxTime;
+                        lastUpdate = 0;
+                    },
+                    "Bribe, I mean donate, to politicians in high places to make the tax policy more easy on you! Tax rate reduces to 30% with tax season being every 2 minutes!"
+                    ) 
+                )
+            }, "Get yourself a trusted friend from Swizerland and have them set up a bank account in your name! Tax rate reduces to 50% with tax season being every 60s!")
+        )
+    },
+    "Start a company in Ireland and make yourself the only employee! Tax rate reduces to 60% with tax season being every 40s!"
+    ),
+
+    new ShopItem("Insider Trading", 100000, function() {
+        stockVolatility1 *= 1.05;
+        stockDrift1 *= 1.05;
+    }, 
+    "Gain insight into the stock market to increase volatility!",
+    true,
+    2
+    )
+
 ]
 
 let shopIsVisible = false;
 
 function displayShop() {
     const shop = document.getElementById("shop");
-    shop.style.display = "grid";
+    shop.style.display = "flex";
     for (let i = 0; i < shopItems.length; i++) {
         const item = shopItems[i]; 
         if (item.visibleInShop == false) continue;
@@ -89,7 +136,7 @@ function displayShop() {
         const description = document.createElement("div");
         description.classList.add("shopItemDescription");
         description.innerHTML = "Price: &#x20BF;" + item.price + "<br>";
-        if (item.remainVisibleAfterPurchase) description.innerHTML += "Num owned: " + item.numBought + "<br>";
+        if (item.remainVisibleAfterPurchase) description.innerHTML += "Owned: " + item.numBought + "<br>";
         description.innerHTML += item.desc;
         
         domElement.appendChild(description);

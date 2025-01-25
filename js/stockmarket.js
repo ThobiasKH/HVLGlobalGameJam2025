@@ -1,7 +1,7 @@
 let stockValue1 = 100.69;
 let stockHoldings = 0;
-const stockVolatility1 = 0.02;
-const stockDrift1 = 0.00001;
+let stockVolatility1 = 0.02;
+let stockDrift1 = 0.00001;
 
 let numFramesPerStockUpdate = 15;
 let numFramesSinceLastStockUpdate = 0;
@@ -17,18 +17,19 @@ stockCanvas.height = 600;
 const moneyAudio = document.getElementById("moneyAudio");
 
 function buyAll() {
-    moneyAudio.play();
     let numPossible = Math.floor(bubbleCurrency / stockValue1);
+    if (numPossible > 0) moneyAudio.play();
     stockHoldings += numPossible;
     bubbleCurrency -= numPossible * stockValue1;
     document.getElementById("moneyText").innerHTML = "&#x20BF;" + bubbleCurrency;
-    document.getElementById("holdings").innerHTML = "Holding: " + stockHoldings;
+    document.getElementById("holdings").innerHTML = "Value held: &#x20BF;" + formatNumber(stockHoldings * stockValue1);
 }
 
 function sellAll() {
-    moneyAudio.play();
+    if (stockHoldings > 0) moneyAudio.play();
     bubbleCurrency += stockHoldings * stockValue1;
     stockHoldings = 0;
+    document.getElementById("holdings").innerHTML = "Value held: &#x20BF;" + formatNumber(stockHoldings * stockValue1);
 }
 
 function buyStock(soundeffect = false) {
@@ -37,7 +38,7 @@ function buyStock(soundeffect = false) {
     bubbleCurrency -= stockValue1;
     document.getElementById("moneyText").innerHTML = "&#x20BF;" + bubbleCurrency;
     stockHoldings++;
-    document.getElementById("holdings").innerHTML = "Holding: " + stockHoldings;
+    document.getElementById("holdings").innerHTML = "Value held: &#x20BF;" + formatNumber(stockHoldings * stockValue1);
 }
 
 function sellStock(soundeffect = false) {
@@ -46,7 +47,7 @@ function sellStock(soundeffect = false) {
     bubbleCurrency += stockValue1;
     document.getElementById("moneyText").innerHTML = "&#x20BF;" + bubbleCurrency;
     stockHoldings--;
-    document.getElementById("holdings").innerHTML = "Holding: " + stockHoldings;
+    document.getElementById("holdings").innerHTML = "Value held: &#x20BF;" + formatNumber(stockHoldings * stockValue1);
 }
 
 function simulateStockPrice(currentPrice, volatility, drift) {

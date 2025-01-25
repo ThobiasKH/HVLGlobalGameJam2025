@@ -1,9 +1,17 @@
 let bubblesOnScreen = [];
-let bubbleCurrency = 100;
+let bubbleCurrency = 0;
+const popAudio = document.getElementById("popAudio");
 
 function addBubble(numBubbles, draw) {
     bubbleCurrency += numBubbles;
     if (!draw) return;
+    const clone = popAudio.cloneNode(true);
+    document.body.appendChild(clone);
+    clone.volume = 0.1;
+    clone.play();
+    clone.addEventListener("ended", () => {
+        clone.remove();
+    });
     spawnBubbleOnScreen();
 }
 
