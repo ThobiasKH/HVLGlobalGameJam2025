@@ -25,6 +25,10 @@ function loop() {
         numFramesSinceLastStockUpdate = 0;
     }
 
+    document.getElementById("moneyText").innerHTML = "&#x20BF;" + bubbleCurrency;
+
+    document.getElementById("holdings").innerHTML = "Stocks held: " + stockHoldings + "<br>" +"Value held: &#x20BF;" + formatNumber(stockHoldings * stockValue1);
+
 
     updateBubbles(); 
 
@@ -102,3 +106,9 @@ function startGame() {
     loop();
     requestAnimationFrame(updateTimer);
 }
+
+document.addEventListener('keydown', function(event) {
+    if (event.key === 'Enter') {
+        event.preventDefault(); // Prevent the default action (e.g., form submission)
+    }
+});

@@ -6,7 +6,7 @@ let stockDrift1 = 0.00001;
 let numFramesPerStockUpdate = 15;
 let numFramesSinceLastStockUpdate = 0;
 
-const maxStockStackSize = 2000;
+let maxStockStackSize = 100;
 let priceStack = [];
 
 const stockCanvas = document.getElementById("graph");
@@ -21,33 +21,26 @@ function buyAll() {
     if (numPossible > 0) moneyAudio.play();
     stockHoldings += numPossible;
     bubbleCurrency -= numPossible * stockValue1;
-    document.getElementById("moneyText").innerHTML = "&#x20BF;" + bubbleCurrency;
-    document.getElementById("holdings").innerHTML = "Value held: &#x20BF;" + formatNumber(stockHoldings * stockValue1);
 }
 
 function sellAll() {
     if (stockHoldings > 0) moneyAudio.play();
     bubbleCurrency += stockHoldings * stockValue1;
     stockHoldings = 0;
-    document.getElementById("holdings").innerHTML = "Value held: &#x20BF;" + formatNumber(stockHoldings * stockValue1);
 }
 
 function buyStock(soundeffect = false) {
     if (bubbleCurrency < stockValue1) return;
     if (soundeffect) moneyAudio.play();
     bubbleCurrency -= stockValue1;
-    document.getElementById("moneyText").innerHTML = "&#x20BF;" + bubbleCurrency;
     stockHoldings++;
-    document.getElementById("holdings").innerHTML = "Value held: &#x20BF;" + formatNumber(stockHoldings * stockValue1);
 }
 
 function sellStock(soundeffect = false) {
     if (stockHoldings == 0) return;
     if (soundeffect) moneyAudio.play();
     bubbleCurrency += stockValue1;
-    document.getElementById("moneyText").innerHTML = "&#x20BF;" + bubbleCurrency;
     stockHoldings--;
-    document.getElementById("holdings").innerHTML = "Value held: &#x20BF;" + formatNumber(stockHoldings * stockValue1);
 }
 
 function simulateStockPrice(currentPrice, volatility, drift) {

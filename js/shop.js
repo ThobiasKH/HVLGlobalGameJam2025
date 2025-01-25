@@ -45,9 +45,9 @@ const shopItems = [
     }, 
     "Hire a small child to blow bubbles for you, their under-developed lungs produce 1 bubble per second so assemble a small army of children to drive up profits! Keep an eye on the cost, keeping child labour under wraps gets expensive! Beware!",
     true, 
-    1.5),
+    1.1),
 
-    new ShopItem("Sugary Sweets", 100000, function() {
+    new ShopItem("Sugary Sweets", 5000, function() {
         shopItems[0].func = function() {
             setInterval(() => {
                 addBubble(1, Math.random() <= 1 / this.numBought);
@@ -61,14 +61,17 @@ const shopItems = [
     new ShopItem("Economic Boom!", 1000, function() {
         numFramesSinceLastStockUpdate = 0; 
         numFramesPerStockUpdate = 10;
+        maxStockStackSize = 300;
         shopItems.push(
-            new ShopItem("Economic Mega Boom!", 10000, function() {
+            new ShopItem("Economic Mega Boom!", 5000, function() {
                 numFramesSinceLastStockUpdate = 0;
                 numFramesPerStockUpdate = 5;
+                maxStockStackSize = 600;
                 shopItems.push(
-                    new ShopItem("Economic Mega Ultra Super Surge!", 100000, function() {
+                    new ShopItem("Economic Mega Ultra Super Surge!", 15000, function() {
                         numFramesSinceLastStockUpdate = 0;
                         numFramesPerStockUpdate = 1;
+                        maxStockStackSize = 1000;
                     },
                     "Establish a personal relationship with the head of state to set fire to the stock market! Watch as the stock market's speed surges to new heights!"
                     )
@@ -93,7 +96,7 @@ const shopItems = [
                 timeLeft = taxTime;
                 lastUpdate = 0;
                 shopItems.push(
-                    new ShopItem("Level 3 Tax Evasion", 50000, function() {
+                    new ShopItem("Level 3 Tax Evasion", 12500, function() {
                         taxTime = 120;
                         taxRate = 0.3;
                         timeLeft = taxTime;
@@ -108,9 +111,9 @@ const shopItems = [
     "Start a company in Ireland and make yourself the only employee! Tax rate reduces to 60% with tax season being every 40s!"
     ),
 
-    new ShopItem("Insider Trading", 100000, function() {
-        stockVolatility1 *= 1.05;
-        stockDrift1 *= 1.05;
+    new ShopItem("Insider Trading", 2500, function() {
+        stockVolatility1 *= 1.25;
+        stockDrift1 *= 1.25;
     }, 
     "Gain insight into the stock market to increase volatility!",
     true,
@@ -135,7 +138,7 @@ function displayShop() {
 
         const description = document.createElement("div");
         description.classList.add("shopItemDescription");
-        description.innerHTML = "Price: &#x20BF;" + item.price + "<br>";
+        description.innerHTML = "Price: &#x20BF;" + formatNumber(item.price) + "<br>";
         if (item.remainVisibleAfterPurchase) description.innerHTML += "Owned: " + item.numBought + "<br>";
         description.innerHTML += item.desc;
         
@@ -182,7 +185,10 @@ document.addEventListener("mousemove", (e) => {
     mousePos.x = e.clientX;
     mousePos.y = e.clientY;
     descriptors.forEach(desc => {
-        desc.style.top = mousePos.y + 20 + "px"; 
+        desc.style.bottom = window.innerHeight - mousePos.y + 20 + "px"; 
         desc.style.left = mousePos.x + 10 + "px";
     });
+});
+document.addEventListener('contextmenu', function(event) {
+    event.preventDefault(); // Prevent the right-click context menu
 });
