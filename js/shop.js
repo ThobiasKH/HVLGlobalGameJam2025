@@ -107,7 +107,7 @@ let shopItems = [
                     "Bribe, I mean donate, to politicians in high places to make the tax policy more easy on you! Tax rate reduces to 30% with tax season being every 2 minutes!"
                     ) 
                 )
-            }, "Get yourself a trusted friend from Swizerland and have them set up a bank account in your name! Tax rate reduces to 50% with tax season being every 60s!")
+            }, "Get yourself a trusted friend from Swizerland and have them set up a bank account to store your assets! Tax rate reduces to 50% with tax season being every 60s!")
         )
     },
     "Start a company in Ireland and make yourself the only employee! Tax rate reduces to 60% with tax season being every 40s!"
@@ -166,6 +166,7 @@ function removeShop() {
         shop.removeChild(shop.firstChild);
     }
 }
+
 
 // fielen dank chatGPT 
 function formatNumber(number, decimals = 2) {

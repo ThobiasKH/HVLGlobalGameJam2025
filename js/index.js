@@ -55,7 +55,7 @@ function updateTimer(timestamp) {
         document.getElementById("gameTimer").innerHTML = "Time played: <br>" + formatTime(timeSinceStart);
     }
     else {
-        document.getElementById("gameTimer").innerHTML = "1 Million achieved in: <br>" + formatTime(timeSinceStart) +"!";
+        document.getElementById("gameTimer").innerHTML = "&#x20BF;1M in: <br>" + formatTime(timeSinceStart) +"!";
     }
 
     if (deltaTime >= 1000) {
@@ -83,7 +83,9 @@ function updateTimer(timestamp) {
     }
 }
 
+let gameRunning = false;
 function startGame(doLoadGameState = true) {
+    gameRunning = true;
     document.getElementById("tutorial").remove();
     if (doLoadGameState) loadGameState();
 
