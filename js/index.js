@@ -1,11 +1,3 @@
-for (let i = 0; i < 2; i++) {
-    stockValue1 = simulateStockPrice(stockValue1, stockVolatility1, stockDrift1);
-    addPriceToStack(stockValue1);
-    drawChart();
-}
-document.getElementById("moneyText").innerHTML = "Bubble Bucks: <br>&#x20BF;" + formatNumber(bubbleCurrency);
-document.getElementById("holdings").innerHTML = "Stocks: " + stockHoldings + "<br>" +"Value: <br> &#x20BF;" + formatNumber(stockHoldings * stockValue1, 0);
-
 function loop() {
     numFramesSinceLastStockUpdate++;
     if (numFramesSinceLastStockUpdate >= numFramesPerStockUpdate) {
