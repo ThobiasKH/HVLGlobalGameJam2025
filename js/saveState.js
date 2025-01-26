@@ -2,24 +2,41 @@
 function saveGameState() {
     let numChildren = shopItems[0].numBought;
     let numInsiders = 0;
+    let sweetsVisible = false;
+    let econboomLevel = 3;
+    let taxEvasionLevel = 3;
     for (let i = 0; i < shopItems.length; i++) {
         if (shopItems[i].name == "Insider Trading") {
             numInsiders = shopItems[i].numBought; 
             break;
         }
+        if (shopItems[i].name == "Sugary Sweets" && shopItems[i].visible) {
+            sweetsVisible = true;
+        }
+        if (shopItems[i].name == "Economic Boom!"&& shopItems[i].visible) {
+            console.log(true)
+            econboomLevel = 0;
+        }
+        if (shopItems[i].name == "Economic Mega Boom!"&& shopItems[i].visible) {
+            econboomLevel = 1;
+        }
+        if (shopItems[i].name == "Economic Mega Ultra Super Surge!"&& shopItems[i].visible) {
+            econboomLevel = 2;
+        }
+        if (shopItems[i].name == "Level 1 Tax Evasion"&& shopItems[i].visible) taxEvasionLevel = 0;
+        if (shopItems[i].name == "Level 2 Tax Evasion"&& shopItems[i].visible) taxEvasionLevel = 1;
+        if (shopItems[i].name == "Level 3 Tax Evasion"&& shopItems[i].visible) taxEvasionLevel = 2;
     }
     const gameState = {
         numChildren,
         numInsiders,
+        sweetsVisible,
+        econboomLevel,
+        taxEvasionLevel, 
         bubbleCurrency,
         stockValue1,
-        stockVolatility1,
-        stockDrift1,
         stockHoldings,
         maxStockStackSize,
-        numFramesPerStockUpdate,
-        taxRate,
-        taxTime,
         timeSinceStart,
         countingGameTime,
     };
@@ -31,31 +48,53 @@ function loadGameState() {
     const savedState = localStorage.getItem('gameState');
     if (savedState) {
         const gameState = JSON.parse(savedState);
-        shopItems[0].numBought = gameState.numChildren;
-        for (let i = 0; i < gameState.numChildren; i++) {
-            shopItems[0].func(); 
-        }
         for (let i = 0; i < shopItems.length; i++) {
-            if (shopItems[i].name == "Insider Trading") {
-                shopItems[i].numBought = gameState.numInsiders;
-                for (let i = 0; i < gameState.numInsiders; i++) {
-                    shopItems[i].func();
-                } 
-                break;
+            if (shopItems[i].name == "Small Child") {
+                for (let i = 0; i < gameState.numChildren; i++) {
+                    shopItems[i].buy(false);
+                }
             }
+            if (shopItems[i].name == "Insider Trading") {
+                for (let i = 0; i < gameState.numInsiders; i++) {
+                    shopItems[i].buy(false);
+                } 
+            }
+             if (!gameState.sweetsVisible && shopItems[i].name == "Sugary Sweets") {
+                shopItems[i].buy(false);
+            }
+            // genuinely loosing my mind right here
+             if (gameState.econboomLevel > 0 && shopItems[i].name == "Economic Boom!") {
+                shopItems[i].buy(false);
+                if (gameState.econboomLevel > 1) {
+                    shopItems[shopItems.length - 1].buy(false);
+                    if (gameState.econboomLevel > 2) {
+                        shopItems[shopItems.length - 1].buy(false);
+                    }
+                }
+            }
+             if (gameState.taxEvasionLevel > 0 && shopItems[i].name == "Level 1 Tax Evasion") {
+                shopItems[i].buy();
+                if (gameState.taxEvasionLevel > 1) {
+                    shopItems[shopItems.length - 1].buy();
+                    if (gameState.taxEvasionLevel > 2) {
+                        shopItems[shopItems.length - 1].buy();
+                    }
+                }
+            } 
+            
         }
         bubbleCurrency = gameState.bubbleCurrency;
         stockValue1 = gameState.stockValue1;
-        stockDrift1 = gameState.stockDrift1;
-        stockVolatility1 = gameState.stockVolatility1;
         stockHoldings = gameState.stockHoldings;
         maxStockStackSize = gameState.maxStockStackSize;
-        numFramesPerStockUpdate = gameState.numFramesPerStockUpdate;
-        taxRate = gameState.taxRate;
-        taxTime = gameState.taxTime;
         timeSinceStart = gameState.timeSinceStart;
         countingGameTime = gameState.countingGameTime;
 
+        for (let i = 0; i < 2; i++) {
+            stockValue1 = simulateStockPrice(stockValue1, stockVolatility1, stockDrift1);
+            addPriceToStack(stockValue1);
+            drawChart();
+        }
         removeShop();
         setupShop();
     } else {

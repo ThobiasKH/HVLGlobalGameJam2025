@@ -20,10 +20,12 @@ class ShopItem {
         this.desc = desc;
     }
 
-    buy() {
-        moneyAudio.play();
-        if (bubbleCurrency < this.price) return;
-        bubbleCurrency -= this.price;
+    buy(useMoney = true) {
+        if (bubbleCurrency < this.price && useMoney == true) return;
+        if (useMoney) { 
+            bubbleCurrency -= this.price;
+            moneyAudio.play();
+        }
         this.func();
         this.visibleInShop = this.remainVisibleAfterPurchase;
         this.numBought++;
@@ -45,7 +47,7 @@ let shopItems = [
     }, 
     "Hire a small child to blow bubbles for you, their under-developed lungs produce 1 bubble per second so assemble a small army of children to drive up profits! Keep an eye on the cost, keeping child labour under wraps gets expensive!",
     true, 
-    1.25),
+    1.1),
 
     new ShopItem("Sugary Sweets", 5000, function() {
         shopItems[0].func = function() {
@@ -115,7 +117,7 @@ let shopItems = [
         stockVolatility1 /= 1.25;
         stockDrift1 *= 2;
     }, 
-    "Gain insight into the stock market to increase volatility!",
+    "Gain insight into the stock market to increase profits! The market will tend upwards more!",
     true,
     2
     )
