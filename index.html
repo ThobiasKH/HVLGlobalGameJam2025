@@ -3,56 +3,47 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title> Blow for Dough </title>
         <link href="css/index.css" rel="stylesheet">
     </head>
-    <title> Blow for Dough </title>
     <body>
+
         <div class="container">
-            <img class="bubble" src="./assets/bubble.png" style="display: none">
-            <div id="blower">  
-                <img id="blowerIMG" draggable="false" src="./assets/blower.png" >
+            <div class="box" id="gameTimer"> Time played: 60s </div>
+            <div id="graphContainer">
+                <canvas class="box" id="graph"> </canvas>
             </div>
-            
-            <div id="stocks">
-                <canvas id="graph"></canvas>
-                <button class="bsButton" id="valueDisplay">  &#x20BF;69 </button>
-                <button class="bsButton" id="buy" onclick="buyStock(true)"> BUY! </button>
-                <button class="bsButton" id="buyAll" onclick="buyAll()"> INVEST ALL! </button>
-                <button class="bsButton" id="sell" onclick="sellStock(true)"> SELL! </button>
-                <button class="bsButton" id="sellAll" onclick="sellAll()"> SELL ALL! </button>
-                <button class="bsButton" id="holdings"> Value held: &#x20BF;0 </button>
-            </div>    
-
-            <button id="blowButton" class="bsButton" onclick="addBubble(1,true)"> BLOW! </button>
-            <button id="moneyText" class="bsButton" onclick="toggleShop()"> &#x20BF;0 </p>
-            <button id="taxCounter" class="bsButton">Next tax: 20s | Rate: 45%</p>
-            <button id="gameTimer" class="bsButton"> Time played: 0s  </p>
-
-            <audio id="beepAudio" src="./assets/BEEP.wav" preload="auto"></audio>
-            <audio id="moneyAudio" src="./assets/MONEY.mp3" preload="auto"></audio>
-            <audio id="popAudio" src="./assets/POP.mp3" preload="auto"></audio>
+            <div class="box" id="tutorial">
+                <h1> Blow for Dough </h1> 
+                <p> Welcome to Blow for Dough! A game about making a million &#x20BF;ubble &#x20BF;ucks as fast as possible! </p>
+                <p> Blow to make &#x20BF;ubble &#x20BF;ucks and invest in the shop to gain upgrades aswell as the stock market to maximize profits!</p>
+                <p> Make sure to hide your money when the Inland Revenue Service comes around to steal your hard earned cash, either by investing or purchasing upgrades! </p>
+                <button class="clickableOutline stockButton" id="startButton" onclick="startGame()">Start Game</button>
+                <button class="clickableOutline stockButton" id="startButton" onclick="startGame(false)"> Start Clean Game </button>
+            </div>
+            <div class="box" id="valueDisplay"></div>
+            <div class="box" id="holdings"> </div>
+            <div class="box" id="taxCounter"> Rate: 50% <br> 60s to next tax </div>
+            <div class="clickableOutline box" id="bubbleButton" onclick="addBubble(1, true)"> BLOW! </div>
+            <div class="box" id="moneyText"> </div>
+            <div class="box" id="shop"></div>
+            <div class="box" id="stockShop">
+                <button class="clickableOutline stockButton buyButton" onclick="buyStock(true)">BUY 1 STOCK</button>
+                <button class="clickableOutline stockButton buyButton" onclick="buyAll()">INVEST ALL MONEY</button>
+                <button class="clickableOutline stockButton sellButton" onclick="sellStock(true)">SELL 1 STOCK</button>
+                <button class="clickableOutline stockButton sellButton" onclick="sellAll()">SELL ALL STOCKS</button>
+            </div>
         </div>
 
-        <div id="shop">
-            
-        </div>
-    
-        <div id="tutorial"> 
-
-            <h1> Welcome to Blow for Dough! </h1>
-            <p><span class="highlight">💥 Ready to become a millionaire in the blink of an eye? 💥</span></p>
-            <p>Welcome to <span class="highlight">Blow for Dough</span>, the game where you race against time to amass a fortune! 💸💥</p>
-            <p>Use your breath to power through challenges, make strategic investments, and secure upgrades that will skyrocket you to wealth! Every second is a chance to grow your fortune and climb to the top! 💨💰</p>
-            <p>Can you build your empire before time runs out? The clock’s ticking and the path to riches is filled with opportunity—and danger! 🔥🔥</p>
-            <p>To reach your millionaire dream, invest wisely and buy upgrades in the shop. But watch out—if you don't act fast, the Inland Revenue Service will take your hard-earned cash!</p>
-            <p>Keep an eye on the clock to make sure you’ve got enough time to dodge taxes and maximize your wealth!</p>
-            <p><span class="highlight">Do you have what it takes to become a millionaire? Blow for Dough is waiting! 💣💣</span></p>
-            <button class ="bsButton" id="tutorialButton" onclick="startGame()">I understand!</button>
-        </div>
+        <audio id="beepAudio" src="./assets/BEEP.wav" preload="auto"></audio>
+        <audio id="moneyAudio" src="./assets/MONEY.mp3" preload="auto"></audio>
+        <audio id="popAudio" src="./assets/POP.mp3" preload="auto"></audio>
+        <img class="bubble" src="./assets/bubble.png" style="display: none">
 
         <script src="./js/stockmarket.js"></script>
         <script src="./js/bubble.js"></script>
         <script src="./js/shop.js"></script>
         <script src="./js/index.js"></script>
+        <script src="./js/saveState.js"></script>
     </body>
 </html>

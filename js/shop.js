@@ -29,23 +29,23 @@ class ShopItem {
         this.numBought++;
         this.price *= this.priceMultiplier;
         removeShop();
-        displayShop();
+        setupShop();
     }
 }
 
 // JS just wasn't unpredictable enough smh
 // let test = new ShopItem("Peter", 100, function() {console.log("wtf")})
 // Please don't judge me
-const shopItems = [
-    new ShopItem("Small Child", 1, 
+let shopItems = [
+    new ShopItem("Small Child", 5, 
         function() {
         setInterval(() => {
             addBubble(1, Math.random() <= 1 / this.numBought);
         }, 1000);
     }, 
-    "Hire a small child to blow bubbles for you, their under-developed lungs produce 1 bubble per second so assemble a small army of children to drive up profits! Keep an eye on the cost, keeping child labour under wraps gets expensive! Beware!",
+    "Hire a small child to blow bubbles for you, their under-developed lungs produce 1 bubble per second so assemble a small army of children to drive up profits! Keep an eye on the cost, keeping child labour under wraps gets expensive!",
     true, 
-    1.1),
+    1.25),
 
     new ShopItem("Sugary Sweets", 5000, function() {
         shopItems[0].func = function() {
@@ -112,8 +112,8 @@ const shopItems = [
     ),
 
     new ShopItem("Insider Trading", 2500, function() {
-        stockVolatility1 *= 1.25;
-        stockDrift1 *= 1.25;
+        stockVolatility1 /= 1.25;
+        stockDrift1 *= 2;
     }, 
     "Gain insight into the stock market to increase volatility!",
     true,
@@ -124,9 +124,14 @@ const shopItems = [
 
 let shopIsVisible = false;
 
-function displayShop() {
+function setupShop() {
     const shop = document.getElementById("shop");
     shop.style.display = "flex";
+    const shopSign = document.createElement("button");
+    shopSign.innerHTML = "SHOP";
+    shopSign.classList.add("shopItem");
+    shopSign.classList.add("shopSign");
+    shop.appendChild(shopSign);
     for (let i = 0; i < shopItems.length; i++) {
         const item = shopItems[i]; 
         if (item.visibleInShop == false) continue;
@@ -134,21 +139,19 @@ function displayShop() {
         domElement.onclick = () => item.buy();
 
         domElement.classList.add("shopItem");
-        domElement.innerText = item.name;
+        domElement.classList.add("clickableOutline");
+        domElement.innerHTML = item.name + (item.remainVisibleAfterPurchase ? " x" + item.numBought : "") + "<br>";
 
-        const description = document.createElement("div");
-        description.classList.add("shopItemDescription");
-        description.innerHTML = "Price: &#x20BF;" + formatNumber(item.price) + "<br>";
-        if (item.remainVisibleAfterPurchase) description.innerHTML += "Owned: " + item.numBought + "<br>";
-        description.innerHTML += item.desc;
-        
-        domElement.appendChild(description);
+       
 
         domElement.addEventListener("mouseover", () => {
-            description.style.display = "block";
+            domElement.innerHTML += "Price: &#x20BF;" + formatNumber(item.price) + "<br>";
+            if (item.remainVisibleAfterPurchase) domElement.innerHTML += "Owned: " + item.numBought + "<br>";
+            domElement.innerHTML += item.desc;
+
         })
         domElement.addEventListener("mouseleave", () => {
-            description.style.display = "none";
+            domElement.innerHTML = item.name + (item.remainVisibleAfterPurchase ? " x" + item.numBought : "") + "<br>";
         })
 
         shop.appendChild(domElement);
@@ -158,37 +161,19 @@ function displayShop() {
 function removeShop() {
     const shop = document.getElementById("shop");
     while (shop.firstChild) {
-        let elem = shop.firstChild;
-        while (elem.firstChild) {
-            elem.removeChild(elem.firstChild);
-        }
-        shop.removeChild(elem);
+        shop.removeChild(shop.firstChild);
     }
-    shop.style.display = "none";
-
 }
 
-function toggleShop() {
-    const shop = document.getElementById("shop");
-    if (!shopIsVisible) {
-        displayShop();
+// fielen dank chatGPT 
+function formatNumber(number, decimals = 2) {
+    if (number >= 1e6) {
+        return number.toExponential(2);
+    } else if (number >= 1e3) {
+        return number.toLocaleString(undefined, { maximumFractionDigits:decimals});
+    } else {
+        return number.toFixed(0);
     }
-    else {
-        removeShop();
-    }
-    shopIsVisible = !shopIsVisible;
 }
 
-let mousePos = {x: 0, y: 0};
-document.addEventListener("mousemove", (e) => {
-    let descriptors = document.querySelectorAll(".shopItemDescription");
-    mousePos.x = e.clientX;
-    mousePos.y = e.clientY;
-    descriptors.forEach(desc => {
-        desc.style.bottom = window.innerHeight - mousePos.y + 20 + "px"; 
-        desc.style.left = mousePos.x + 10 + "px";
-    });
-});
-document.addEventListener('contextmenu', function(event) {
-    event.preventDefault(); // Prevent the right-click context menu
-});
+setupShop();

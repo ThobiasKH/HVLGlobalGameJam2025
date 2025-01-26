@@ -1,207 +1,183 @@
-/* Disgusting stuff */
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans&display=swap');
 body {
-    background: black;
     user-select: none;
-    font-family: "Noto Sans", Sans-Serif;
 }
-
-#tutorial {
-    text-align: center;
-    color: white;
+.container {
+    display: grid;
     position: fixed;
-    width: 100%;
-    height: 100%;
     top: 0;
     left: 0;
-    background: black;
+    width: 100%;
+    height: 100%;
+    grid-template-rows: repeat(4, 1fr);
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1vmin; 
+    background-color: #f0f0f0;
 }
 
-#tutorialButton {
-    width: 20%;
-}
-
-#stocks {
-    width: 45%;
-    height: 90%;
-    margin: 2vmin;
+.box {
+    font-family: "Noto Sans", Sans-Serif;
+    color: white;
     display: flex;
-    flex-direction: column;
     align-items: center;
+    justify-content: center;
+    font-size: 5vh; 
+    border-radius: 1vw; 
+    box-shadow: 0 0 1vw rgba(0, 0, 0, 0.2); 
+}
+
+#graphContainer {
+    grid-row: 1 / span 2;
+    grid-column: 2 / span 2;
 }
 
 #graph {
+    background: #292a5c;
     width: 100%;
-    height: 100%;
-    background: black;
+    height:100%;
 }
 
-.bsButton {
-    font-family: "Noto Sans", Sans-Serif;
-    border-radius: 1vmin;
-    font-size: 200%;
-    width: 50%;
-    height: 10%;
-    border: solid black 0.1vmin;
-    margin-top: 1%;
+#valueDisplay {
+    color: #21A0A0; 
+    background: pink;
+    grid-row: 2;
 }
 
-.bsButton:hover {
+#bubbleButton {
+    background-color: #21A0A0; 
+    grid-column: 3;
+    grid-row: 3;
+}
+
+#bubbleButton:hover {
+    background: #118090; 
     cursor: pointer;
 }
 
 #moneyText {
-    position: fixed;
-    width: 20%;
-    top: 85%;
-    left: 2%;
-
-}
-
-#blowButton {
-    position: fixed;
-    width: 20%;
-    top: 72.5%;
-    left: 2%;
-}
-
-
-#valueDisplay {
-    background: white;
-}
-
-#valueDisplay:hover {
-    background: white;
-    cursor: auto;
+    background: #046865;
+    grid-column: 3;
+    grid-row: 4
 }
 
 #holdings {
-    background: white;
+    background: #4f799c;
+    grid-row: 3 / span 2;
+    grid-column: ;
 }
 
-#holdings:hover {
-    background: white;
-    cursor: auto;
+#gameTimer {
+    background: #FFE900
 }
 
-#buy {
-    background: #00A121;
-}
-
-#buy:hover {
-    background: #278121;
-}
-
-#buyAll {
-    background: #00A121;
-}
-
-#buyAll:hover {
-    background: #278121;
-}
-
-#sellAll {
+#taxCounter {
     background: red;
-}
+    grid-row 3;
 
-#sellAll:hover {
-    background: #ab0000;
-}
-
-#sell {
-    background: red;
-}
-
-#sell:hover {
-    background: #ab0000;
-}
-
-#blower {
-    margin: 2vmin;
-}
-
-#blowerIMG {
-    width: 50%;
-}
-
-
-.bubble {
-    top: 40%;
-    left: 40%;
-    width: 4vmin;
-    position: absolute;
-}
-
-.container {
-    background-image: url("../assets/background.jpg");
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    width: 100%;
-    height: 100%;
-    position: absolute;
-    top: 0;
-    left: 0;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
 }
 
 #shop {
-    background: #A19C7C;
-    position: fixed;
-    width: 40%;
-    height: 40%;
-    top: 59%;
-    left: 23.5%;
-    border: solid black 0.1vmin;
-    display: none;
-    gap: 10px;
-    flex-direction: column;
-    overflow-y: scroll;
-    overflow-x: hidden;
+    background: #f3b26d;
+    grid-row: 2/ span 3;
+    grid-column: 4;
+    display: flex;
+    flex-direction: column; 
+    padding: 0.5vmin;
 }
 
 .shopItem {
-    background: white;
+    font-family: "Noto Sans", Sans-Serif;
+    margin-top: 0.5vmin;
+    margin-bottom: 0.5vmin;
+    border-radius: 1vw;
+    height: 100%;
     width: 100%;
-    height: 20%;
-    margin: 0.2vmin;
-    margin-top: 0.1vmin;
-    margin-bottom: 0.1vmin;
-    border-radius: 1vmin;
-    font-size: 100%;
+    background: #f37f6d;
+    text-align: center;
+    color: white;
+    font-size: 2.5vmin;
 }
 
 .shopItem:hover {
     cursor: pointer;
+    background: #d36f69;
 }
 
-.shopItemDescription {
-    font-family: "Noto Sans", Sans-Serif;
-    display: none;
-    background: white;
+
+.bubble {
     position: fixed;
-    width: 20%;
+}
+
+.clickableOutline {
+    border: dashed 0.25vmin black;
+}
+
+.clickableOutline:hover {
+    border: solid 0.25vmin black;
+}
+
+#tutorial {
+    border-radius: 0;
+    position: fixed;
+    font-size: 2vmin;
+    display: flex;
+    flex-direction: column;
     text-align: center;
-    border-radius: 1vmin;
-    border: black solid 0.2vmin;
+    background: black;
+    padding: 0.5vmin;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
 }
 
-#gameTimer {
-    position: fixed;
-    left: 2%;
-    top: 3%;
+#startButton {
+    width: 40vw;
+    height: 20vh;
+    color: black;
 }
 
-#taxCounter {
-    background: "#00ff00";
-    position: fixed;
-    left: 2%;
-    top: 13%;
-}
-
-#taxCounter:hover {
+.shopSign:hover {
+    background: #f37f6d;
     cursor: auto;
-    background: auto;
+}
+
+#stockShop {
+    background: #20bd81;;
+    grid-row: 3 / span 2; 
+    grid-column: 2; 
+    display: flex;
+    flex-direction: column;
+    padding: 0.5vmin;
+}
+
+.stockButton {
+    font-family: "Noto Sans", Sans-Serif;
+    font-size: 3vmin;
+    color: #2146a9;
+    border-radius: 2vh;
+    width: 100%;
+    height: 100%;
+    margin-top: 0.5vmin;
+    margin-bottom: 0.5vmin;
+}
+
+.stockButton:hover {
+    cursor: pointer;
+}
+
+.buyButton {
+    background: #0fff00;
+}
+
+.buyButton:hover {
+    background: #0aaa00;
+}
+
+.sellButton {
+    background: #ff0000;
+}
+
+.sellButton:hover {
+    background: #aa0000;
 }

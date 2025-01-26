@@ -3,17 +3,8 @@ for (let i = 0; i < 2; i++) {
     addPriceToStack(stockValue1);
     drawChart();
 }
-
-// fielen dank chatGPT 
-function formatNumber(number) {
-    if (number >= 1e6) {
-        return number.toExponential(2);
-    } else if (number >= 1e3) {
-        return number.toLocaleString(undefined, { maximumFractionDigits: 2 });
-    } else {
-        return number.toFixed(2);
-    }
-}
+document.getElementById("moneyText").innerHTML = "Bubble Bucks: <br>&#x20BF;" + formatNumber(bubbleCurrency);
+document.getElementById("holdings").innerHTML = "Stocks: " + stockHoldings + "<br>" +"Value: <br> &#x20BF;" + formatNumber(stockHoldings * stockValue1, 0);
 
 function loop() {
     numFramesSinceLastStockUpdate++;
@@ -27,14 +18,14 @@ function loop() {
 
     document.getElementById("moneyText").innerHTML = "&#x20BF;" + bubbleCurrency;
 
-    document.getElementById("holdings").innerHTML = "Stocks held: " + stockHoldings + "<br>" +"Value held: &#x20BF;" + formatNumber(stockHoldings * stockValue1);
+    document.getElementById("holdings").innerHTML = "Stocks: " + stockHoldings + "<br>" +"Value: <br> &#x20BF;" + formatNumber(stockHoldings * stockValue1, 0);
 
 
     updateBubbles(); 
 
     if (bubbleCurrency >= 1000000) countingGameTime = false;
 
-    document.getElementById("moneyText").innerHTML = "Shop | &#x20BF;" + formatNumber(bubbleCurrency);
+    document.getElementById("moneyText").innerHTML = "Bubble Bucks: <br>&#x20BF;" + formatNumber(bubbleCurrency);
     requestAnimationFrame(loop);;
 
 }
@@ -59,9 +50,9 @@ let timeSinceStart = 0;
 let countingGameTime = true;
 
 const taxCounter = document.getElementById("taxCounter");
-taxCounter.textContent = "Rate: " + taxRate * 100 + "% | Next tax: " + timeLeft +"s";
+taxCounter.innerHTML = "Tax rate: " + taxRate * 100 + "% <br> Next tax: " + timeLeft +"s";
 taxCounter.style.background = "#00ff00";
-document.getElementById("gameTimer").innerText = "Time spent becoming a millionaire: " + formatTime(timeSinceStart);
+document.getElementById("gameTimer").innerHTML = "Time played: <br>" + formatTime(timeSinceStart);
 function updateTimer(timestamp) {
     if (!lastUpdate) {
         lastUpdate = timestamp;
@@ -69,10 +60,10 @@ function updateTimer(timestamp) {
     
     const deltaTime = timestamp - lastUpdate; 
     if (countingGameTime) {
-        document.getElementById("gameTimer").innerText = "Time spent becoming a millionaire: " + formatTime(timeSinceStart);
+        document.getElementById("gameTimer").innerHTML = "Time played: <br>" + formatTime(timeSinceStart);
     }
     else {
-        document.getElementById("gameTimer").innerText = "Congrats you became a millionaire in " + formatTime(timeSinceStart) +"!";
+        document.getElementById("gameTimer").innerHTML = "1 Million achieved in: <br>" + formatTime(timeSinceStart) +"!";
     }
 
     if (deltaTime >= 1000) {
@@ -81,7 +72,7 @@ function updateTimer(timestamp) {
             timeLeft--;
             if (countingGameTime) timeSinceStart++;
 
-            taxCounter.textContent = "Rate: " + taxRate * 100 + "% | Next tax: " + timeLeft + "s";
+            taxCounter.innerHTML = "Tax rate: " + taxRate * 100 + "% <br> Next tax: " + timeLeft +"s";
         }
         if (timeLeft < 5) {
             beep.play();
@@ -100,8 +91,9 @@ function updateTimer(timestamp) {
     }
 }
 
-function startGame() {
+function startGame(doLoadGameState = true) {
     document.getElementById("tutorial").remove();
+    if (doLoadGameState) loadGameState();
 
     loop();
     requestAnimationFrame(updateTimer);
@@ -112,3 +104,4 @@ document.addEventListener('keydown', function(event) {
         event.preventDefault(); // Prevent the default action (e.g., form submission)
     }
 });
+

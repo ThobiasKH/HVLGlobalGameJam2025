@@ -11,7 +11,7 @@ let priceStack = [];
 
 const stockCanvas = document.getElementById("graph");
 const stockCTX = stockCanvas.getContext("2d");
-stockCanvas.width = 600;
+stockCanvas.width = 1200;
 stockCanvas.height = 600;
 
 const moneyAudio = document.getElementById("moneyAudio");
@@ -58,7 +58,7 @@ function addPriceToStack(newPrice) {
 }
 
 function drawChart() {
-    document.getElementById("valueDisplay").innerHTML = "&#x20BF;" + stockValue1.toFixed(2);
+    document.getElementById("valueDisplay").innerHTML = "Stock price: <br> &#x20BF;" + stockValue1.toFixed(2);
     stockCTX.clearRect(0, 0, stockCanvas.width, stockCanvas.height);
 
     if (priceStack.length <= 1) return; 
@@ -75,7 +75,7 @@ function drawChart() {
     const scaleY = usableHeight / (maxPrice - minPrice);
 
     stockCTX.strokeStyle = "#cccccc";
-    stockCTX.lineWidth = 1;
+    stockCTX.lineWidth = 4;
     stockCTX.beginPath();
     stockCTX.moveTo(padding, padding);
     stockCTX.lineTo(padding, chartHeight - padding); 

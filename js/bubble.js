@@ -1,5 +1,5 @@
 let bubblesOnScreen = [];
-let bubbleCurrency = 0;
+let bubbleCurrency = 999999;
 const popAudio = document.getElementById("popAudio");
 
 function addBubble(numBubbles, draw) {
@@ -24,8 +24,8 @@ function spawnBubbleOnScreen() {
     bubble.draggable = false;
 
     bubble.style.width = Math.random() * 5 + 2 + "%";
-    bubble.style.left = Math.random() * 2.5 + 6 + "%";
-    bubble.style.top = Math.random() * 5 + 30 + "%";
+    bubble.style.left = Math.random() * 100 + "%";
+    bubble.style.top = Math.random() * 5 + 90 + "%";
 
     document.querySelector(".container").appendChild(bubble);
 
