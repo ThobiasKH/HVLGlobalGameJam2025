@@ -1,5 +1,5 @@
 let bubblesOnScreen = [];
-let bubbleCurrency = 999999;
+let bubbleCurrency = 0;
 const popAudio = document.getElementById("popAudio");
 
 function addBubble(numBubbles, draw) {

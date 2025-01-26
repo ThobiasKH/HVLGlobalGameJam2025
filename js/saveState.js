@@ -64,8 +64,6 @@ function loadGameState() {
 }
 
 window.addEventListener('beforeunload', saveGameState);
-// redundancy?
-setInterval(saveGameState, 1000 * 60);
 
 for (let i = 0; i < 2; i++) {
     stockValue1 = simulateStockPrice(stockValue1, stockVolatility1, stockDrift1);
