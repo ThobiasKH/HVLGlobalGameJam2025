@@ -42,6 +42,7 @@ function saveGameState() {
         stockHoldings,
         timeSinceStart,
         countingGameTime,
+        timeLeft
     };
     localStorage.setItem('gameState', JSON.stringify(gameState));
 }
@@ -92,6 +93,10 @@ function loadGameState() {
     stockHoldings = gameState.stockHoldings;
     timeSinceStart = gameState.timeSinceStart;
     countingGameTime = gameState.countingGameTime;
+    timeLeft = gameState.timeLeft;
+    const taxCounter = document.getElementById("taxCounter");
+    taxCounter.innerHTML = "Tax rate: " + taxRate * 100 + "% <br> Next tax: " + timeLeft +"s";
+    taxCounter.style.background = timeLeft > 5 ? "#00ff00" : "#ff0000";
 
     for (let i = 0; i < 2; i++) {
         stockValue1 = simulateStockPrice(stockValue1, stockVolatility1, stockDrift1);
