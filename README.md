@@ -9,3 +9,5 @@ In Blow for Dough, you’ll blow bubbles to earn Bubble Bucks—because why do a
 Features include really cool gameplay over a deep metacommentary on capitalism, with a cutting edge autosaving feature so you can easily return where you left off.
 Warning: Autosaving is jank and doesn't always work as it should. 
 > See saveState.js to see why
+
+Itch.io page: https://thobiaskh.itch.io/blow-for-dough
